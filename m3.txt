@@ -1,0 +1,145 @@
+"""
+Module 3 (A5, A6, and B3) for exam 2024-08-21
+"""
+class LinkedList:
+
+    class Node:
+        def __init__(self, data, succ=None):
+            self.data = data
+            self.succ = succ
+
+    def __init__(self):
+        self.first = None
+
+    def __iter__(self):
+        current = self.first
+        while current:
+            yield current.data
+            current = current.succ
+    
+    def __str__(self):
+        return '(' + ', '.join([str(x) for x in self]) + ')'
+    
+    ### A5 START ###
+    def to_list(self):
+        pass
+    
+    ### A5 STOP ###
+
+    def push(self, data)->None:
+        """ Puts a new node with 'data' as the first element in the list"""
+        self.first = self.Node(data, self.first)
+
+
+
+class BST:
+
+    class Node:
+        def __init__(self, key, left=None, right=None):
+            self.key = key
+            self.left = left
+            self.right = right
+
+        def __str__(self):
+            return str(self.key)
+
+        def __iter__(self):
+            if self.left:
+                yield from self.left
+            yield self
+            if self.right:
+                yield from self.right
+
+    def __init__(self, init=None):
+        self.root = None
+        if init:
+            for x in init:
+                self.insert(x)
+
+    def __iter__(self):
+        if self.root:
+            yield from self.root
+
+    def __str__(self):
+        return '<' + ', '.join([str(x) for x in self]) + '>'
+
+    def insert(self, key):
+        def insert(key, r):
+            if r is None:
+                return BST.Node(key)
+            elif key < r.key:
+                r.left = insert(key, r.left)
+            elif key > r.key:
+                r.right = insert(key, r.right)
+            else:
+                pass
+            return r
+
+        self.root = insert(key, self.root)
+    
+
+    ### A6 START 
+    def shortest_path_to_leaf(self):
+        pass
+    ### A6 STOP ### Demo function after the classes
+
+    ### B3 START ###
+    def max_level_sum(self):
+        pass
+    ### B3 STOP ###
+
+
+### Demo functions ###
+
+def A5():
+    print(f'\nA5: Demonstrate the to_list function')
+    lst = LinkedList()
+    print('An empty list:', lst.to_list())
+    for x in (5, 4, 3, 2, 1):
+        lst.push(x)
+    print(f'{lst} creates the list {lst.to_list()}')
+
+
+
+def A6():
+    print('\nA6: Demonstrate shortest_path_to_leaf in BST')
+    tests = ((15, 1), (18, 1), (17, 1), (13, 2), (19, 2), (11, 2), 
+             (14, 3), (12, 3), (10, 3), (20, 3), (16, 3)) 
+    bst = BST()
+    print(f'In an empty tree we expect 0. Got {bst.shortest_path_to_leaf()}')
+
+    for case in tests:
+        bst.insert(case[0])
+        print(f'After inserting {case[0]:3d} we expect {case[1]}. Got {bst.shortest_path_to_leaf()}',)
+    return
+
+def B3():
+    print(f'\nB3: Demonstrate the max_level_sum in BST')
+    tree = BST((4, 1))
+    print(f'Expects 4, got {tree.max_level_sum()}')
+    tree = BST((4, 7))
+    print(f'Expects 7, got {tree.max_level_sum()}')
+    tree = BST((4, 7, 9))
+    print(f'Expects 9, got {tree.max_level_sum()}')
+    tree = BST((4, 7, 9, 3))
+    print(f'Expects 10, got {tree.max_level_sum()}')
+    inserts = (5, 8, 1, 3, 7, 2, 6, 9)
+    print(f'\nInserted keys: {inserts}')
+    tree = BST(inserts)
+    print('Maximal level sum:', tree.max_level_sum())
+    tree.insert(12)
+    print('Maximal level sum:', tree.max_level_sum(), 
+          'after inserting 12')
+    try: 
+        print('Empty tree', BST().max_level_sum())
+    except ValueError as ve:
+        print(f'*** {ve}')
+### Demo functions stop ###
+
+
+
+
+if __name__ == '__main__':
+    A5()
+    A6()
+    B3()

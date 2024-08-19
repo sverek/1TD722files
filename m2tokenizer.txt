@@ -1,0 +1,109 @@
+# Tokenizer 
+#    Rewritten 2024-05-23
+
+class Tokenizer:
+    def __init__(self, line):
+        self.line = line
+        self.current = 0
+        self.tokens = Tokenizer.tokenize(line)
+
+    def get_current(self):
+        if self.current < len(self.tokens):
+            return self.tokens[self.current][1]
+        else:
+            return "NO MORE TOKENS"
+
+    def get_previous(self):
+        if self.current == 0:
+            return "START"
+        else:
+            return self.tokens[self.current-1][1]
+
+    def has_next(self):
+        return self.current < len(self.tokens)
+
+    def next(self):
+        if self.has_next():
+            self.current += 1
+            return self.tokens[self.current-1]
+        else:
+            return 0, 'EOS'
+
+    def tokenize(line: str) -> list:
+        start = 0
+        result = []
+        while True:
+            typ, start, end = Tokenizer.find_token(line, start)
+            result.append((typ, line[start:end]))
+            if end == len(line) or line[end] == '#':
+                break
+            start = end
+        result.append((0, 'END-OF-LINE'))
+        return result
+
+    def find_token(line: str, start_pos: int):
+        start = start_pos
+
+        while start < len(line) and line[start] in (' ',):
+            start += 1
+        if start == len(line) or line[start] == '#':
+            return 0, start, start
+        if line[start].isalpha():
+            stop = start
+            while stop < len(line) and line[stop].isalpha():
+                stop += 1
+            return 1, start, stop
+        elif line[start].isdigit():
+            stop = start
+            while stop < len(line) and line[stop].isdigit():
+                stop += 1
+            if stop < len(line) and line[stop] == '.':
+                stop += 1
+                while stop < len(line) and line[stop].isdigit():
+                    stop += 1
+
+            return 2, start, stop
+        else:
+            return 3, start, start+1
+
+    def is_number(self):
+        return self.tokens[self.current][0] == 2
+
+    def is_name(self):
+        return self.tokens[self.current][0] == 1
+
+    def is_string(self):
+        return self.tokens[self.current][0] == 3
+
+    def is_newline(self):
+        return self.tokens[self.current][0] == 4
+
+    def is_comment(self):
+        return self.tokens[self.current][0] == 55
+
+    def is_at_end(self):
+        return self.tokens[self.current][0] == 0
+
+
+def main():
+    line = '    2 hello! 25 123.4 (1e10 ++) - "LAST" #hej hopp'
+    w = Tokenizer(line)
+    while w.has_next():
+        print(w.get_current(), end='\t')
+        if w.is_name():
+            print('NAME')
+        elif w.is_number():
+            print('NUMBER')
+        elif w.is_string():
+            print('STRING')
+        elif w.is_comment():
+            print('COMMENT')
+        else:
+            print()
+        w.next()
+
+    print('Bye')
+
+
+if __name__ == '__main__':
+    main()

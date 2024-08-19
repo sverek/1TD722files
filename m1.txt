@@ -1,0 +1,90 @@
+"""
+Module 1 (A1, A2, and B1) for exam 2024-08-21
+"""
+
+import time
+
+### A1 START ###
+
+def digits(x: int) -> int:
+    pass # Write your code here
+
+def A1():
+    print('\nDemonstrating A1, the digits:\n')
+    print('    n   Expected    digits(n)')
+    for item in ((0, 1), (1, 1), (12, 2), (223, 3), (-321, 3), (4736, 4)):
+        n = item[0]
+        print(f'{n:5d}   {item[1]:4d}           {digits(n)}')
+
+### A1 STOP ###
+
+
+### A2 START ###
+def foo(n):
+    """A2"""
+    if n<3: 
+        return 1
+    else:
+        return n + 2*foo(n-1) - foo(n-2) - foo(n-3)
+
+# Solution using memoization
+def foo_mem(n): 
+    pass 
+
+def A2():
+    print('\n\nDemonstrating A2, foo and foo_mem:\n')
+    print('    n    foo(n)     foo_mem(n)')
+    for n in range(2, 16):
+        print(f'{n:5d}  {foo(n):5d}           {foo_mem(n)}')
+
+
+### A2 STOP ###
+
+
+### B1 START ###
+# Timing code in the exam environment may give very unreliable result. Use the given result!
+def timing_foo():
+    for i in (28, 29, 30, 31):
+        tstart = time.perf_counter()
+        foo(i)
+        dt = time.perf_counter()-tstart
+        print(f'{i:3d} : {dt:4.2f}')    
+
+### B1 STOP ###
+
+
+def B1():
+    print(
+    """\n  Answers to B1:
+
+    Time complexity for the given function            :  Theta(???)
+    Motivation:
+
+    
+
+
+        
+    Estimated time for foo(100) (specify time unit!)  :  ???          
+    Motivation:
+
+
+
+    
+
+    Non-trivial lower bound                           : Omega(???)
+    Motivation:
+
+
+
+
+     
+
+    """
+    )
+
+
+if __name__ == "__main__":
+    A1()
+    A2()
+    B1()
+

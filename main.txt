@@ -1,0 +1,21 @@
+# Uncomment the lines for the module files you want to import.
+from m1 import *
+# from m2 import *
+# from m2b import *
+# from m3 import *
+# from m4 import *
+
+if __name__ == '__main__':
+    # Uncomment the lines for the tasks you want to test.
+    A1()
+    # A2()
+    # B1()
+    # A3_A4()  # Should not be uncommented if any other task is uncommented
+    # B2()     # Should not be uncommented if any other task is uncommented
+    # A5()
+    # A6()
+    # B3()
+    # A7()
+    # A8()
+    # B4()
+

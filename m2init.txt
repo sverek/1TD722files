@@ -1,0 +1,17 @@
+# Things that should work from start
+1+(2=x)*(5-2) = y
+
+# A3: Functions with a single argument
+1 + exp(0) + log(1)               # Expects 2.0
+log(exp(3))                       # Expects 3.0 (or close)
+
+# A4: Functions with several arguments
+max(3, 1, 4) + min(2, 3)          # Expects 6
+sum(1=x, 2=y, 3) + max(2)         # Expects 8
+mean(1, 2, x+y, 4, 5)             # Expects 3.0
+max()                             # Expects SyntaxError
+max 1, 2, 3                       # Expects SyntaxError
+mean(1, 2, 3 4)                   # Expects SyntaxError
+max(1/(1-1))                      # Expects EvaluationError
+
+### Use q och quit to exit the calculator!

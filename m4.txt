@@ -1,0 +1,43 @@
+"""
+Module 4 (A7, A8, and B4) for exam 2024-08-21
+"""
+### A7 ###
+def A7():
+    print(cleanup([-1.2,8.3E-12,-8.2E-9,3,-1E-11], 1E-10))
+
+def cleanup(x, tol):
+    pass
+
+### A8 ###
+from math import sin, pi
+
+def A8():
+    print(compute_area(10,2))
+
+def depth(x):
+    # Do not modify this function
+    # returns depth (positive value) of the river, assuming x is in [0,10]
+    return [xx*(10-xx)/5-sin(pi*(xx-3)/2)-sin(3*pi/2) for xx in x]
+
+def compute_area(n, n_boats):
+    # exact value of the integral is 130/3 = 43.333...
+    pass
+
+### B4 ###
+def B4():
+    print_all_percentages(1000,2)
+
+def poker_hands(n):
+    pass
+
+def print_all_percentages(n,n_processes):
+    print("None")
+
+if __name__ == '__main__':
+    A7()
+    A8()
+    B4()
+
+      
+
+

@@ -1,0 +1,17 @@
+# m2binit.txt: Demonstrates the facilities required in task B2
+
+1+2*3
+2*(3+2-1)
+2+3+4
+8-3-4
+8-(3-4)
+3++4           # Syntax error
+
+# Using predefined variables
+2*PI - 1
+4*ans
+2+x            # Undefined
+
+# Using assignments
+1+2=x
+(1=x)*(2=y) + 4*y
